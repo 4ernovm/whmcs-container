@@ -10,7 +10,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Chernoff\\": "src/Chernoff/"
+            "Chernoff\\Container\\": "src/Chernoff/Container"
         }
     }
 }

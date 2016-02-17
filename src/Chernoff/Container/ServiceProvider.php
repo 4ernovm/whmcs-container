@@ -15,23 +15,45 @@ abstract class ServiceProvider extends BaseProvider
     protected $app;
 
     /** @var bool */
-    protected static $loaded = false;
+    protected static $registered = false;
+
+    /** @var bool */
+    protected static $booted = false;
 
     /**
      * @return boolean
      */
-    public function isLoaded()
+    public function isBooted()
     {
-        return self::$loaded;
+        return self::$booted;
     }
 
     /**
-     * @param $loaded
+     * @param $booted
      * @return $this
      */
-    public function setLoaded($loaded)
+    public function setBooted($booted)
     {
-        self::$loaded = $loaded;
+        self::$booted = $booted;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isRegistered()
+    {
+        return self::$registered;
+    }
+
+    /**
+     * @param $registered
+     * @return $this
+     */
+    public function setRegistered($registered)
+    {
+        self::$registered = $registered;
 
         return $this;
     }
