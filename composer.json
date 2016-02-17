@@ -1,6 +1,7 @@
 {
     "name": "4ernovm/whmcs-container",
     "description": "Apparently WHMCS has it's own DI container but we'll keep our own container aside because we don't want to mess things up",
+    "minimum-stability": "dev",
     "authors": [
         { "name": "Michael Chernov", "email": "4ernovm@gmail.com" }
     ],
