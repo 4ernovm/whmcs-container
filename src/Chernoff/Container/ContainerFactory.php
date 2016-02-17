@@ -32,15 +32,31 @@ class ContainerFactory
     /**
      * @param array $providers
      */
-    public static function loadProviders(array $providers)
+    public static function registerProviders(array $providers)
     {
         foreach ($providers as $provider) {
             /** @var ServiceProvider $instance */
             $instance = new $provider(self::getContainer());
 
-            // We want to load services only once.
-            if (!$instance->isLoaded()) {
-                $instance->setLoaded(true)->register();
+            // We want to register services only once.
+            if (!$instance->isRegistered()) {
+                $instance->setRegistered(true)->register();
+            }
+        }
+    }
+
+    /**
+     * @param array $providers
+     */
+    public static function bootProviders(array $providers)
+    {
+        foreach ($providers as $provider) {
+            /** @var ServiceProvider $instance */
+            $instance = new $provider(self::getContainer());
+
+            // We want to boot services only once.
+            if (!$instance->isBooted()) {
+                $instance->setBooted(true)->boot();
             }
         }
     }
