@@ -11,7 +11,7 @@ Add `4ernovm/whmcs-container` as a requirement to composer.json:
 ```json
 {
     "require": {
-        "4ernovm/whm-container": "*"
+        "4ernovm/whm-container": "0.1.*"
     }
 }
 ```
@@ -30,6 +30,6 @@ Add repository information:
 And then run `composer update`
 
 
-### Installation
+### Usage
 
 will be here soon
