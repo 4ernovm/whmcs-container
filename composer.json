@@ -1,0 +1,16 @@
+{
+    "name": "4ernovm/whmcs-container",
+    "description": "Apparently WHMCS has it's own DI container but we'll keep our own container aside because we don't want to mess things up",
+    "authors": [
+        { "name": "Michael Chernov", "email": "4ernovm@gmail.com" }
+    ],
+    "require": {
+        "illuminate/container": "4.1.*",
+        "illuminate/support": "4.1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Chernoff\\": "src/Chernoff/"
+        }
+    }
+}
