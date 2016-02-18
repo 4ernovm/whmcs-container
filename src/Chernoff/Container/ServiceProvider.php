@@ -14,27 +14,26 @@ abstract class ServiceProvider extends BaseProvider
     /** @var  Container */
     protected $app;
 
-    /** @var bool */
-    protected static $registered = false;
+    /** @var [] */
+    protected static $registered = [];
 
-    /** @var bool */
-    protected static $booted = false;
+    /** @var [] */
+    protected static $booted = [];
 
     /**
      * @return boolean
      */
     public function isBooted()
     {
-        return self::$booted;
+        return in_array(get_called_class(), static::$booted);
     }
 
     /**
-     * @param $booted
      * @return $this
      */
-    public function setBooted($booted)
+    public function setBooted()
     {
-        self::$booted = $booted;
+        static::$booted = get_called_class();
 
         return $this;
     }
@@ -44,16 +43,15 @@ abstract class ServiceProvider extends BaseProvider
      */
     public function isRegistered()
     {
-        return self::$registered;
+        return in_array(get_called_class(), static::$registered);
     }
 
     /**
-     * @param $registered
      * @return $this
      */
-    public function setRegistered($registered)
+    public function setRegistered()
     {
-        self::$registered = $registered;
+        static::$registered[] = get_called_class();
 
         return $this;
     }

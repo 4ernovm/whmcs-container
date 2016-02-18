@@ -10,8 +10,11 @@ use Illuminate\Container\Container;
  */
 class ContainerFactory
 {
-    /** @var  \Illuminate\Container\Container */
+    /** @var Container */
     private static $container;
+
+    /** @var bool */
+    private static $registered = false;
 
     private function __construct() {}
 
@@ -35,14 +38,10 @@ class ContainerFactory
     public static function registerProviders(array $providers)
     {
         foreach ($providers as $provider) {
-            /** @var ServiceProvider $instance */
-            $instance = new $provider(self::getContainer());
-
-            // We want to register services only once.
-            if (!$instance->isRegistered()) {
-                $instance->setRegistered(true)->register();
-            }
+            self::register(new $provider(self::getContainer()));
         }
+
+        self::$registered = true;
     }
 
     /**
@@ -50,14 +49,34 @@ class ContainerFactory
      */
     public static function bootProviders(array $providers)
     {
-        foreach ($providers as $provider) {
-            /** @var ServiceProvider $instance */
-            $instance = new $provider(self::getContainer());
+        if (!self::$registered) {
+            self::registerProviders($providers);
+        }
 
-            // We want to boot services only once.
-            if (!$instance->isBooted()) {
-                $instance->setBooted(true)->boot();
-            }
+        foreach ($providers as $provider) {
+            self::boot(new $provider(self::getContainer()));
+        }
+    }
+
+    /**
+     * @param ServiceProvider $provider
+     */
+    protected static function register(ServiceProvider $provider)
+    {
+        // We want to register services only once.
+        if (!$provider->isRegistered()) {
+            $provider->setRegistered()->register();
+        }
+    }
+
+    /**
+     * @param ServiceProvider $provider
+     */
+    protected static function boot(ServiceProvider $provider)
+    {
+        // We want to boot services only once.
+        if (!$provider->isBooted()) {
+            $provider->setBooted()->boot();
         }
     }
 }
