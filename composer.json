@@ -6,8 +6,8 @@
         { "name": "Michael Chernov", "email": "4ernovm@gmail.com" }
     ],
     "require": {
-        "illuminate/container": "4.1.*",
-        "illuminate/support": "4.1.*"
+        "illuminate/container": "5.2.*",
+        "illuminate/support": "5.2.*"
     },
     "autoload": {
         "psr-4": {
