@@ -13,8 +13,8 @@ class ContainerFactory
     /** @var Container */
     private static $container;
 
-    /** @var bool */
-    private static $registered = false;
+    /** @var  array */
+    private static $providers = [];
 
     private function __construct() {}
 
@@ -40,8 +40,6 @@ class ContainerFactory
         foreach ($providers as $provider) {
             self::register(new $provider(self::getContainer()));
         }
-
-        self::$registered = true;
     }
 
     /**
@@ -49,11 +47,10 @@ class ContainerFactory
      */
     public static function bootProviders(array $providers)
     {
-        if (!self::$registered) {
-            self::registerProviders($providers);
-        }
+        self::$providers = array_unique(array_merge(self::$providers, $providers));
+        self::registerProviders(self::$providers);
 
-        foreach ($providers as $provider) {
+        foreach (self::$providers as $provider) {
             self::boot(new $provider(self::getContainer()));
         }
     }
